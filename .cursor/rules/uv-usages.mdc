@@ -1,0 +1,106 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Конечно. Вот подробный гайд по использованию uv на основе видео:
+1. **Что такое uv?**
+   - uv - это пакетный менеджер для Python, альтернатива pip и Poetry. 
+   -  Он лучше, быстрее, написан на языке Rust.
+   -  Он похож на  pyenv и virtualenv, но быстрее.
+
+2. **Установка uv:**
+   -  Для Linux:
+        ```bash
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        ```
+      -  Если команда curl отсутствует, установите ее:
+        ```bash
+        sudo apt install -y curl
+        ```
+   -  Для macOS:
+        ```bash
+        brew install uv
+        ```
+
+3.  **Автодополнение:**
+    -  Добавьте автодополнение команд uv и uvx для Bash и Zsh в соответствующие файлы конфигурации.
+
+4.  **Работа с версиями Python:**
+    -  Чтобы просмотреть список доступных версий Python:
+        ```bash
+        uv python list
+        ```
+    -  Для установки определенной версии Python:
+        ```bash
+        uv python install 3.13.2
+        ```
+
+5.  **Привязка версии Python к проекту:**
+    -  Создайте пустую директорию, представляющую проект.
+    -  Привяжите определенную версию Python к проекту:
+        ```bash
+        uv python pin 3.13.2
+        ```
+    -  Это создаст файл `.python-version` в директории проекта, содержащий указанную версию Python.
+    -  Чтобы изменить версию Python, нужно просто изменить значение внутри этого файла .python-version.
+   
+
+6.  **Управление зависимостями проекта:**
+    -  Инициализация проекта (создание файла pyproject.toml):
+       ```bash
+       uv init
+       ```
+    -  Добавление зависимости:
+       ```bash
+       uv add requests
+       ```
+   -  Для установки зависимостей из requirements.txt используется режим совместимости с pip:
+        ```bash
+        uv pip install -r requirements.txt
+        ```
+
+7. **Запуск Python-кода:**
+   -  Для запуска файла main.py с установленными зависимостями:
+        ```bash
+        uv run main.py
+        ```
+
+8.  **Инструмент uvx:**
+    -  uvx – это инструмент, предназначенный для использования и запуска других программ.
+    -  Узнайте больше информации о инструменте:
+        ```bash
+        uvx --help
+        ```
+9. **Запуск инструментов (линтеров, статических анализаторов) с помощью uvx:**
+   -  Например, чтобы установить и запустить линтер Ruff:
+       ```bash
+       uvx ruff check.
+       uvx ruff check --fix.
+       ```
+
+10.  **Использование Shebang в Python-файлах**
+    -  Чтобы указать Python и зависимости прямо в файле.
+
+```python
+#!/usr/bin/env -S uv run --script
+### requires-python ">=3.13"
+### dependencies = [
+    "natsort",
+    "tabulate"
+]
+import argparse 
+from pathlib import Path
+import os
+import re
+from natsort import natsort import natsorted
+from tabulate import tabulate import tabulate
+# остальная часть вашего кода Python
+```
+
+Теперь вы можете запускать python скрипт:
+```bash
+./number_files.py --simulate 12
+```
+
+Пожалуйста, сообщите если потребуется дополнительная информация.
